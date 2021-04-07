@@ -23,9 +23,11 @@ Route::get('/contact', function () {
 
 Route::get('/posts/{id}', function ($id) {
     return "Blog post $id";
-})->where([
-    'id' => '[0-9]+',
-])->name('posts.show');
+})
+// ->where([
+//     'id' => '[0-9]+',
+// ])
+->name('posts.show');
 
 Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 20) {
     return "Posts from $daysAgo days ago";
