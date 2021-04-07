@@ -25,6 +25,6 @@ Route::get('/posts/{id}', function ($id) {
     return "Blog post $id";
 })->name('posts.show');
 
-Route::get('/recent-posts/{days-ago?}', function ($daysAgo = 20) {
+Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 20) {
     return "Posts from $daysAgo days ago";
 })->name('post.recent.index');
