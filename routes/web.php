@@ -56,32 +56,34 @@ Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 20) {
     return "Posts from $daysAgo days ago";
 })->name('post.recent.index');
 
-Route::get('/fun/responses', function () use ($posts) {
-    return response($posts, 201)
-        ->header('Content-Type', 'application/json')
-        ->cookie('MY_COOKIE', 'Chief Oye', 3600);
-});
+Route::prefix('/fun')->name('fun.')->group(function () use ($posts) {
+    Route::get('/responses', function () use ($posts) {
+        return response($posts, 201)
+            ->header('Content-Type', 'application/json')
+            ->cookie('MY_COOKIE', 'Chief Oye', 3600);
+    })->name('responses');
 
-Route::get('/fun/redirect', function () {
-    return redirect('contact');
-});
+    Route::get('/redirect', function () {
+        return redirect('contact');
+    })->name('redirect');
 
-Route::get('/fun/back', function () {
-    return back();
-});
+    Route::get('/back', function () {
+        return back();
+    })->name('back');
 
-Route::get('/fun/named-route', function () {
-    return redirect()->route('posts.show', ['id' => 1]);
-});
+    Route::get('/named-route', function () {
+        return redirect()->route('posts.show', ['id' => 1]);
+    })->name('named-route');
 
-Route::get('/fun/away', function () {
-    return redirect()->away('www.google.com');
-});
+    Route::get('/away', function () {
+        return redirect()->away('www.google.com');
+    })->name('away');
 
-Route::get('/fun/json', function () use ($posts) {
-    return response()->json($posts);
-});
+    Route::get('/json', function () use ($posts) {
+        return response()->json($posts);
+    })->name('json');
 
-Route::get('/fun/download', function () use ($posts) {
-    return response()->download(public_path('/Screenshot.jpg', ), 'image_x.jpg');
+    Route::get('/download', function () use ($posts) {
+        return response()->download(public_path('/Screenshot.jpg', ), 'image_x.jpg');
+    })->name('download');
 });
