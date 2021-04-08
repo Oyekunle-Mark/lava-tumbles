@@ -23,7 +23,7 @@ $posts = [
     1 => [
         'title' => 'Intro to Laravel',
         'content' => 'This is a short intro to Laravel',
-        'is_new'=> true,
+        'is_new' => true,
         'has_comments' => true,
     ],
     2 => [
@@ -55,3 +55,9 @@ Route::get('/posts/{id}', function ($id) use ($posts) {
 Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 20) {
     return "Posts from $daysAgo days ago";
 })->name('post.recent.index');
+
+Route::get('/fun/responses', function () use ($posts) {
+    return response($posts, 201)
+        ->header('Content-Type', 'application/json')
+        ->cookie('MY_COOKIE', 'Chief Oye', 3600);
+});
