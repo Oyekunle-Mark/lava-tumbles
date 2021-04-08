@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::view('/', 'home.index')
+Route::get('/', [HomeController::class, 'home'])
     ->name('home.index');
 
-Route::view('/contact', 'home.contact')
+Route::get('/contact', [HomeController::class, 'contact'])
     ->name('home.contact');
 
 $posts = [
