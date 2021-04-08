@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return 'Home Page.';
+    return view('home.index');
 })->name('home.index');
 
 Route::get('/contact', function () {
@@ -23,11 +23,7 @@ Route::get('/contact', function () {
 
 Route::get('/posts/{id}', function ($id) {
     return "Blog post $id";
-})
-// ->where([
-//     'id' => '[0-9]+',
-// ])
-->name('posts.show');
+})->name('posts.show');
 
 Route::get('/recent-posts/{daysAgo?}', function ($daysAgo = 20) {
     return "Posts from $daysAgo days ago";
