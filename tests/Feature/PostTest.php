@@ -33,7 +33,8 @@ class PostTest extends TestCase
         ]);
     }
 
-    public function testStoreValid() {
+    public function testStoreValid()
+    {
         $params = [
             'title' => 'valid title here',
             'content' => 'at least 10 characters',
@@ -46,7 +47,8 @@ class PostTest extends TestCase
         $this->assertEquals(session('status'), 'The blog post was created');
     }
 
-    public function testStoreFail() {
+    public function testStoreFail()
+    {
         $params = [
             'title' => 'hey',
             'content' => 'ho',
@@ -59,5 +61,38 @@ class PostTest extends TestCase
         $messages = session('errors')->getMessages();
         $this->assertEquals($messages['title'][0], 'The title must be at least 5 characters.');
         $this->assertEquals($messages['content'][0], 'The content must be at least 10 characters.');
+    }
+
+    public function testUpdateUpdateValid()
+    {
+        $post = new BlogPost();
+        $post->title = 'Test title';
+        $post->content = 'Test content';
+        $post->save();
+
+        $this->assertDatabaseHas('blog_posts', [
+            'title' => 'Test title',
+            'content' => 'Test content',
+        ]);
+
+        $params = [
+            'title' => 'some updated title',
+            'content' => 'some update content',
+        ];
+
+        $this->put("/posts/{$post->id}", $params)
+            ->assertStatus(302) // assert redirects to right page
+            ->assertSessionHas('status');
+
+        $this->assertEquals(session('status'), 'Blog post was updated!');
+
+        $this->assertDatabaseMissing('blog_posts', [
+            'title' => 'Test title',
+            'content' => 'Test content',
+        ]);
+        $this->assertDatabaseHas('blog_posts', [
+            'title' => 'some updated title',
+            'content' => 'some update content',
+        ]);
     }
 }
