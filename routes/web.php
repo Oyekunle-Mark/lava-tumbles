@@ -63,7 +63,7 @@ $posts = [
 // })->name('post.recent.index');
 
 Route::resource('posts', PostsController::class)
-    ->only(['index', 'show', 'create', 'store', 'edit']);
+    ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 
 Route::prefix('/fun')->name('fun.')->group(function () use ($posts) {
     Route::get('/responses', function () use ($posts) {
