@@ -7,6 +7,15 @@
     <title>Laravel App - @yield('title')</title>
 </head>
 <body>
+    <div>
+        <h4>Laravel Blog</h4>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/contact">Contact</a>
+            <a href="/posts">Blog Posts</a>
+            <a href="/posts/create">Add</a>
+        </nav>
+    </div>
     @if(session('status'))
         <div style="background-color: red">
             {{ session('status') }}
