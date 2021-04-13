@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', [HomeController::class, 'home'])
-    ->name('home.index');
+    ->name('home.index')
+    // ->middleware('auth')
+    ;
 
 Route::get('/contact', [HomeController::class, 'contact'])
     ->name('home.contact');
