@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\BlogPost' => 'App\Policies\BlogPostPolicy',
     ];
 
     /**
@@ -36,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         // Gate::define('posts.update', '\App\Policies\BlogPostPolity@update');
         // Gate::define('posts.delete', '\App\Policies\BlogPostPolity@delete');
 
-        Gate::resource('posts', '\App\Policies\BlogPostPolity');
+        // Gate::resource('posts', '\App\Policies\BlogPostPolity');
 
         // Gate::before(function ($user, $ability) {
         //     if ($user->is_admin && in_array($ability, ['posts.update'])) {
