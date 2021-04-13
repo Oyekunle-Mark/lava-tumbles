@@ -8,6 +8,7 @@
 @endif
 
 <div>
+    <a href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
     <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="POST">
         @csrf
         @method('DELETE')
