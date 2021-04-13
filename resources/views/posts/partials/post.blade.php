@@ -2,6 +2,7 @@
 {{-- @continue($key === 1) --}}
 @if($loop->even)
     <div>{{ $key }} . {{ $post->title }}</div>
+    <p>by {{ $post->user->name }}</p>
 @else
     <div style="background-color: silver">{{ $key }} . {{ $post->title }}</div>
 @endif
