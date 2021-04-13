@@ -10,16 +10,16 @@
     <div>
         <h4>Laravel Blog</h4>
         <nav>
-            <a href="/">Home</a>
-            <a href="/contact">Contact</a>
-            <a href="/posts">Blog Posts</a>
-            <a href="/posts/create">Add</a>
+            <a href="{{ route("home.index") }}">Home</a>
+            <a href="{{ route("home.contact") }}">Contact</a>
+            <a href="{{ route("posts.index") }}">Blog Posts</a>
+            <a href="{{ route("posts.create") }}">Add</a>
 
             @guest
                 <a href="{{ route("register") }}">Register</a>
                 <a href="{{ route("login") }}">Login</a>
             @else
-            <a href="{{ route("logout") }}" onclick="event.preventDefault();document.getElementById('logout-form').submit()">Logout</a>
+            <a href="{{ route("logout") }}" onclick="event.preventDefault();document.getElementById('logout-form').submit()">Logout ({{ Auth::user()->name }})</a>
 
             <form id="logout-form" action={{ route("logout") }} method="POST" style="display: none;">
                 @csrf
