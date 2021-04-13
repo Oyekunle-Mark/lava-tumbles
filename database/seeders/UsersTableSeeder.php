@@ -13,11 +13,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $usersCount = max((int) $this->command->ask('How many users would you like?', 20), 1);
+
         \App\Models\User::factory()->state([
             'name' => 'John Doe',
             'email' => 'jd@test.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ])->create();
-        \App\Models\User::factory(20)->create();
+        \App\Models\User::factory($usersCount)->create();
     }
 }
