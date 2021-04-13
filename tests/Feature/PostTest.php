@@ -53,7 +53,8 @@ class PostTest extends TestCase
             'content' => 'at least 10 characters',
         ];
 
-        $this->post('/posts', $params)
+        $this->actingAs($this->user())
+            ->post('/posts', $params)
             ->assertStatus(302) // assert redirects to right page
             ->assertSessionHas('status');
 
@@ -67,7 +68,8 @@ class PostTest extends TestCase
             'content' => 'ho',
         ];
 
-        $this->post('/posts', $params)
+        $this->actingAs($this->user())
+            ->post('/posts', $params)
             ->assertStatus(302) // assert redirects to right page
             ->assertSessionHas('errors');
 
@@ -90,7 +92,8 @@ class PostTest extends TestCase
             'content' => 'some update content',
         ];
 
-        $this->put("/posts/{$post->id}", $params)
+        $this->actingAs($this->user())
+            ->put("/posts/{$post->id}", $params)
             ->assertStatus(302) // assert redirects to right page
             ->assertSessionHas('status');
 
@@ -115,7 +118,8 @@ class PostTest extends TestCase
             'content' => 'Test content',
         ]);
 
-        $this->delete("/posts/{$post->id}")
+        $this->actingAs($this->user())
+            ->delete("/posts/{$post->id}")
             ->assertStatus(302)
             ->assertSessionHas('status');
 
