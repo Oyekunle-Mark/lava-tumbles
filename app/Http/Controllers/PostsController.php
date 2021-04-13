@@ -78,7 +78,7 @@ class PostsController extends Controller
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, "You can't edit this blog post.");
         // }
-        $this->authorize('update-post', $post);
+        $this->authorize('post.update', $post);
 
         return view('posts.edit', ['post' => $post]);
     }
@@ -97,7 +97,7 @@ class PostsController extends Controller
         // if (Gate::denies('update-post', $post)) {
         //     abort(403, "You can't edit this blog post.");
         // }
-        $this->authorize('update-post', $post);
+        $this->authorize('post.update', $post);
 
         $validated = $request->validated();
         $post->fill($validated);
@@ -120,7 +120,7 @@ class PostsController extends Controller
         // if (Gate::denies('delete-post', $post)) {
         //     abort(403, "You can't delete this blog post.");
         // }
-        $this->authorize('delete-post', $post);
+        $this->authorize('post.delete', $post);
 
         $post->delete();
 
