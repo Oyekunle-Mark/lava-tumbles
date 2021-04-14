@@ -22,7 +22,10 @@ class PostsController extends Controller
     {
         return view(
             'posts.index',
-            ['posts' => BlogPost::latest()->withCount('comments')->get()]
+            [
+                'posts' => BlogPost::latest()->withCount('comments')->get(),
+                'most_commented' => BlogPost::mostCommented()->take(5)->get(),
+            ]
         );
     }
 
