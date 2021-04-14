@@ -15,6 +15,15 @@
     </ul>
 </div>
 
+<div>
+    <h3>Most Active User</h3>
+    <ul>
+        @foreach ($most_active_user as $user)
+            <li>{{ $user->name }}</li>
+        @endforeach
+    </ul>
+</div>
+
 @section('content')
     @forelse ($posts as $key => $post)
         @include('posts.partials.post')
