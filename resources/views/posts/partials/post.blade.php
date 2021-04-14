@@ -8,6 +8,11 @@
 @endif
 
 <div>
+    <h3>
+        @if ($post->trashed())
+            <del style="color: red;">Trashed</del>
+        @endif
+    </h3>
     @can('update', $post)
         <a href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
     @endcan
