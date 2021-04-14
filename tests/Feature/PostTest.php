@@ -80,7 +80,8 @@ class PostTest extends TestCase
 
     public function testUpdateUpdateValid()
     {
-        $post = $this->createDummyBlogPost();
+        $user = $this->user();
+        $post = $this->createDummyBlogPost($user->id);
 
         $this->assertDatabaseHas('blog_posts', [
             'title' => 'Test title',
@@ -92,7 +93,7 @@ class PostTest extends TestCase
             'content' => 'some update content',
         ];
 
-        $this->actingAs($this->user())
+        $this->actingAs($user)
             ->put("/posts/{$post->id}", $params)
             ->assertStatus(302) // assert redirects to right page
             ->assertSessionHas('status');
@@ -111,14 +112,15 @@ class PostTest extends TestCase
 
     public function testDelete()
     {
-        $post = $this->createDummyBlogPost();
+        $user = $this->user();
+        $post = $this->createDummyBlogPost($user->id);
 
         $this->assertDatabaseHas('blog_posts', [
             'title' => 'Test title',
             'content' => 'Test content',
         ]);
 
-        $this->actingAs($this->user())
+        $this->actingAs($user)
             ->delete("/posts/{$post->id}")
             ->assertStatus(302)
             ->assertSessionHas('status');
@@ -129,7 +131,7 @@ class PostTest extends TestCase
         // $this->assertSoftDeleted('blog_posts', $post->toArray());
     }
 
-    private function createDummyBlogPost(): BlogPost
+    private function createDummyBlogPost($userId = null): BlogPost
     {
         // $post = new BlogPost();
         // $post->title = 'Test title';
@@ -140,9 +142,9 @@ class PostTest extends TestCase
 
         return BlogPost::factory()
             ->state([
-                'user_id' => $this->user()->id,
                 'title' => 'Test title',
                 'content' => 'Test content',
+                'user_id' => $userId ?? $this->user()->id,
             ])
             ->create();
     }
