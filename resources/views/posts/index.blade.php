@@ -24,6 +24,15 @@
     </ul>
 </div>
 
+<div>
+    <h3>Most Active User Last Month</h3>
+    <ul>
+        @foreach ($most_active_user_last_month as $month_user)
+            <li>{{ $month_user->name }}</li>
+        @endforeach
+    </ul>
+</div>
+
 @section('content')
     @forelse ($posts as $key => $post)
         @include('posts.partials.post')
