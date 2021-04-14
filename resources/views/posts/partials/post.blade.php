@@ -9,7 +9,9 @@
 
 <p>
     @foreach ($post->tags as $tag)
-        <a href="#">{{ $tag->name }}</a>
+        <a href="{{ route('posts.tags.index', ['tag' => $tag->id]) }}">
+            {{ $tag->name }}
+        </a>
     @endforeach
 </p>
 
