@@ -20,7 +20,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => BlogPost::withCount('comments')->get()]);
+        return view(
+            'posts.index',
+            ['posts' => BlogPost::withCount('comments')->get()]
+        );
     }
 
     /**
