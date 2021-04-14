@@ -12,6 +12,10 @@
         <a href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
     @endcan
 
+    {{--  @cannot('delete', $post)
+        <p>You cannot delete this post.</p>
+    @endcannot  --}}
+
     @can('delete', $post)
         <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="POST">
             @csrf
