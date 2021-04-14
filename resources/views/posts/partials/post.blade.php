@@ -21,11 +21,12 @@
             @csrf
             @method('DELETE')
             <input type="submit" value="Delete!">
-            @if ($post->comments_count)
-                <p>{{ $post->comments_count }} comments</p>
-            @else
-                <p>No comments yet!</p>
-            @endif
         </form>
     @endcan
+
+    @if ($post->comments_count)
+        <p>{{ $post->comments_count }} comments</p>
+    @else
+        <p>No comments yet!</p>
+    @endif
 </div>
