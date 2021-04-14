@@ -7,6 +7,12 @@
     <div style="background-color: silver">{{ $key }} . {{ $post->title }}</div>
 @endif
 
+<p>
+    @foreach ($post->tags as $tag)
+        <a href="#">{{ $tag->name }}</a>
+    @endforeach
+</p>
+
 <div>
     <h3>
         @if ($post->trashed())
