@@ -140,6 +140,7 @@ class PostTest extends TestCase
 
         return BlogPost::factory()
             ->state([
+                'user_id' => $this->user()->id,
                 'title' => 'Test title',
                 'content' => 'Test content',
             ])
