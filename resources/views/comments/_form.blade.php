@@ -1,5 +1,5 @@
 @auth
-    <form action="#" method="POST">
+    <form action="{{ route('posts.comments.store', ['post' => $post->id]) }}" method="POST">
         @csrf
         <div>
             <textarea type="text" name="content"></textarea>
