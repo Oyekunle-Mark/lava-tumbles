@@ -4,6 +4,9 @@
 <div>
     <textarea name="content">{{ old('content', optional($post ?? null)->content) }}</textarea>
 </div>
+<div>
+    <input type="file" name="thumbnail" />
+</div>
 
 @if($errors->any())
     <div>
