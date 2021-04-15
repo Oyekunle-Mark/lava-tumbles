@@ -16,9 +16,10 @@
 <h1>{{ $post->title }}</h1>
 <p> {{ $post->content }}</p>
 
-<img src="{{ $post->image->url() }}" />
-
-<br />
+@if ($post->image)
+    <img src="{{ $post->image->url() }}" />
+    <br />
+@endif
 
 <span>Currently read by {{ $counter }} people.</span>
 
