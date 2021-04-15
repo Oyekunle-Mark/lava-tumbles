@@ -2,7 +2,14 @@
 {{-- @continue($key === 1) --}}
 @if($loop->even)
     <div>{{ $key }} . {{ $post->title }}</div>
-    <p>by {{ $post->user->name }}</p>
+
+    {{-- @if(isset($userId))
+        by <a href="{{ route('users.show', ['user' => $userId]) }}">
+            {{ $post->user->name }}
+        </a>
+    @else --}}
+        <p>by {{ $post->user->name }}</p>
+    {{-- @endif --}}
 @else
     <div style="background-color: silver">{{ $key }} . {{ $post->title }}</div>
 @endif
