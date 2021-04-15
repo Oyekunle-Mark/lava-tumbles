@@ -2,7 +2,7 @@
 
 @section('content')
     <div>
-        <img src="" />
+        <img src="{{ $user->image ? $user->image->url() : '' }}" />
     </div>
     <div>
         <p>{{ $user->name }}</p>
