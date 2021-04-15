@@ -24,6 +24,7 @@
     <p>
         {{ $comment->content }}
     </p>
+    <span>Created by {{ $comment->user->name }}</span>
 @empty
     <p>No comments yet.</p>
 @endforelse
