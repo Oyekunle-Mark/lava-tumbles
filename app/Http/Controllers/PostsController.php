@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -68,7 +69,12 @@ class PostsController extends Controller
         $post = BlogPost::create($validated);
 
         if ($request->hasFile('thumbnail')) {
-            $file = $request->file('thumbnail')->store('thumbnails');
+            $path = $request->file('thumbnail')->store('thumbnails');
+            $post->image()->save(
+                Image::create([
+                    'path' => $path,
+                ]),
+            );
         }
 
         $request->session()->flash('status', 'The blog post was created');
@@ -94,9 +100,9 @@ class PostsController extends Controller
 
         $blogPost = Cache::tags(['blog_post'])->remember("blog-post-$id", 60, function () use ($id) {
             return BlogPost::with('comments', 'tags', 'user', 'comments.user')
-                // ->with('tags')
-                // ->with('user')
-                // ->with('comments.user')
+            // ->with('tags')
+            // ->with('user')
+            // ->with('comments.user')
                 ->findOrFail($id);
         });
 

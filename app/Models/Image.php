@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
@@ -14,5 +15,10 @@ class Image extends Model
     public function blogPost()
     {
         return $this->belongsTo(BlogPost::class);
+    }
+
+    public function url()
+    {
+        return Storage::url($this->path);
     }
 }
