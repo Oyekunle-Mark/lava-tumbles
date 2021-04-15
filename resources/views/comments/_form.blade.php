@@ -7,6 +7,16 @@
         <div>
             <input type="submit" value="Add Comment"/>
         </div>
+
+        @if($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </form>
 @else
     <a href="{{ route('login') }}">Sign in to post comment</a>
