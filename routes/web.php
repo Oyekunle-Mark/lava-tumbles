@@ -7,6 +7,8 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PostTagController;
 use App\Http\Controllers\UserCommentController;
 use App\Http\Controllers\UserController;
+use App\Mail\CommentPostedMarkdown;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -118,5 +120,10 @@ Route::resource('users', UserController::class)
 
 Route::resource('users.comments', UserCommentController::class)
     ->only(['store']);
+
+Route::get('mailable', function () {
+    $comment = Comment::find(1);
+    return new CommentPostedMarkdown($comment);
+});
 
 Auth::routes();
