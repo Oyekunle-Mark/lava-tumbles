@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentPosted;
 use App\Http\Requests\StoreComment;
-use App\Jobs\NotifyUserPostWasCommented;
-use App\Jobs\ThrottleMail;
-use App\Mail\CommentPostedMarkdown;
 use App\Models\BlogPost;
-use Illuminate\Support\Facades\Mail;
 
 class PostCommentController extends Controller
 {
@@ -24,25 +21,7 @@ class PostCommentController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        // mailable instance should implement ShouldQueue interface
-        // Mail::to($post->user)->send(
-        //     new CommentPostedMarkdown($comment),
-        // );
-
-        $when = now()->addMinutes(1);
-
-        // Mail::to($post->user)->queue(
-        //     new CommentPostedMarkdown($comment),
-        // );
-
-        // Mail::to($post->user)->later(
-        //     $when,
-        //     new CommentPostedMarkdown($comment),
-        // );
-
-        ThrottleMail::dispatch(new CommentPostedMarkdown($comment), $post->user);
-
-        NotifyUserPostWasCommented::dispatch($comment);
+        event(new CommentPosted($comment));
 
         $request->session()->flash('status', 'Comment was created');
 

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\CommentPosted;
+use App\Listeners\NotifyUsersAboutComment;
 use App\Models\BlogPost;
 use App\Models\Comment;
 use App\Observers\BlogPostObserver;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        CommentPosted::class => [
+            NotifyUsersAboutComment::class,
         ],
     ];
 
