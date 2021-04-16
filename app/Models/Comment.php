@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Cache;
 
 class Comment extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Taggable;
+    use HasFactory, SoftDeletes, Taggable;
 
     protected $fillable = ['user_id', 'content'];
 
