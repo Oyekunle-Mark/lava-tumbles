@@ -4,11 +4,10 @@ namespace App\Mail;
 
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CommentPostedMarkdown extends Mailable implements ShouldQueue
+class CommentPostedMarkdown extends Mailable
 {
     use Queueable, SerializesModels;
 
