@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\BlogPostPosted;
 use App\Events\CommentPosted;
+use App\Listeners\CacheSubscriber;
 use App\Listeners\NotifyAdminWhenBlogPostIsCreated;
 use App\Listeners\NotifyUsersAboutComment;
 use App\Models\BlogPost;
@@ -32,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
         BlogPostPosted::class => [
             NotifyAdminWhenBlogPostIsCreated::class,
         ],
+    ];
+
+    protected $subscribe = [
+        CacheSubscriber::class,
     ];
 
     /**
