@@ -111,7 +111,7 @@ class PostsController extends Controller
                 ->findOrFail($id);
         });
 
-        $counter = new Counter();
+        $counter = resolve(Counter::class);
 
         return view('posts.show', [
             'post' => $blogPost,
