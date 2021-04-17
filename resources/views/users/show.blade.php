@@ -5,7 +5,9 @@
         <img src="{{ $user->image ? $user->image->url() : '' }}" />
     </div>
     <div>
-        <p>{{ $user->name }}</p>
+        <h1>{{ $user->name }}</h1>
+
+        <p>Currently viewed by {{ $counter }} other users.</p>
     </div>
 
     @auth
