@@ -27,8 +27,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        $this->app->singleton(Counter::class, function () {
-            return new Counter(env('COUNTER_TIMEOUT'));
+        $this->app->singleton(Counter::class, function ($app) {
+            return new Counter(
+                $app->make('Illuminate\Contracts\Cache\Factory'),
+                $app->make('Illuminate\Contracts\Session\Session'),
+                env('COUNTER_TIMEOUT'),
+            );
         });
 
         // $this->app->when(Counter::class)
