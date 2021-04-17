@@ -14,11 +14,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
-    public function __construct()
+    private $counter;
+
+    public function __construct(Counter $counter)
     {
         $this->middleware('auth')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
+        $this->counter = $counter;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -111,11 +115,9 @@ class PostsController extends Controller
                 ->findOrFail($id);
         });
 
-        $counter = resolve(Counter::class);
-
         return view('posts.show', [
             'post' => $blogPost,
-            'counter' => $counter->increment("blog-post-$id", ["blog_post"]),
+            'counter' => $this->counter->increment("blog-post-$id", ["blog_post"]),
         ]);
     }
 
