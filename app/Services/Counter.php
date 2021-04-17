@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\CounterContract;
 use Illuminate\Contracts\Cache\Factory as Cache;
 use Illuminate\Contracts\Session\Session;
 
-class Counter
+class Counter implements CounterContract
 {
     private $timeout;
     private $cache;

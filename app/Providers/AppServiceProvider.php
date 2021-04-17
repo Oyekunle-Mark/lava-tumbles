@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\CounterContract;
 use App\Services\Counter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -34,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
                 env('COUNTER_TIMEOUT'),
             );
         });
+
+        $this->app->bind(
+            CounterContract::class,
+            Counter::class,
+        );
 
         // $this->app->when(Counter::class)
         //     ->needs('$timeout')
