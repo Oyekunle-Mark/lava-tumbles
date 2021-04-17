@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        $this->app->bind(Counter::class, function () {
+        $this->app->singleton(Counter::class, function () {
             return new Counter(5);
         });
     }
