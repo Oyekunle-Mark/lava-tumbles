@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,12 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson() && $e instanceof ModelNotFoundException) {
             return Route::respondWithRoute('api.fallback');
+        }
+
+        if ($request->expectsJson() && $e instanceof AuthorizationException) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 403);
         }
 
         return parent::render($request, $e);
