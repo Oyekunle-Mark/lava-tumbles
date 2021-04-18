@@ -18,9 +18,7 @@ class ApiPostCommentsTest extends TestCase
      */
     public function testNewBlogPostDoesNotHaveComment()
     {
-        BlogPost::factory()->create([
-            'user_id' => $this->user()->id,
-        ]);
+        $this->createTestPost();
 
         $response = $this->json('GET', 'api/v1/posts/1/comments');
 
@@ -31,17 +29,14 @@ class ApiPostCommentsTest extends TestCase
 
     public function testBlogPostHasTenComments()
     {
-        $userId = $this->user()->id;
         $commentCount = 10;
 
-        BlogPost::factory()->create([
-            'user_id' => $userId,
-        ])->each(function (BlogPost $blogPost) use ($userId, $commentCount) {
+        $this->createTestPost()->each(function (BlogPost $blogPost) use ($commentCount) {
             $blogPost->comments()->saveMany(
                 Comment::factory()
                     ->count($commentCount)
                     ->make([
-                        'user_id' => $userId,
+                        'user_id' => $this->user()->id,
                     ]),
             );
         });
@@ -66,5 +61,51 @@ class ApiPostCommentsTest extends TestCase
                 'meta',
             ])
             ->assertJsonCount($commentCount, 'data');
+    }
+
+    public function testAddingCommentsWhenNotAuthenticated()
+    {
+        $this->createTestPost();
+
+        $response = $this->json('POST', 'api/v1/posts/3/comments', [
+            'content' => 'Hello',
+        ]);
+
+        $response->assertUnauthorized();
+    }
+
+    public function testAddingCommentWhenAuthenticated()
+    {
+        $this->createTestPost();
+
+        $response = $this->actingAs($this->user(), 'api')->json('POST', 'api/v1/posts/4/comments', [
+            'content' => 'Hello',
+        ]);
+
+        $response->assertStatus(201);
+    }
+
+    public function testAddingCommentWithInvalidData()
+    {
+        $this->createTestPost();
+
+        $response = $this->actingAs($this->user(), 'api')->json('POST', 'api/v1/posts/5/comments', []);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                "message" => "The given data was invalid.",
+                "errors" => [
+                    "content" => [
+                        "The content field is required.",
+                    ],
+                ],
+            ]);
+    }
+
+    protected function createTestPost()
+    {
+        return BlogPost::factory()->create([
+            'user_id' => $this->user()->id,
+        ]);
     }
 }
