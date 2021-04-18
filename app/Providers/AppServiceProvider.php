@@ -52,6 +52,6 @@ class AppServiceProvider extends ServiceProvider
         //     ->needs('$timeout')
         //     ->give(env('COUNTER_TIMEOUT'));
 
-        // CommentResource::withoutWrapping();
+        CommentResource::withoutWrapping();
     }
 }
