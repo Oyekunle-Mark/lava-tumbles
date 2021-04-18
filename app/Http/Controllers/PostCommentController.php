@@ -17,7 +17,7 @@ class PostCommentController extends Controller
     public function index(BlogPost $post)
     {
         // return new CommentResource($post->comments()->first());
-        return CommentResource::collection($post->comments);
+        return CommentResource::collection($post->comments()->with('user')->get());
         // return $post->comments()->with('user')->get();
     }
 
