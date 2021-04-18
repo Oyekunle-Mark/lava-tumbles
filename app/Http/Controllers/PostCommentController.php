@@ -13,6 +13,11 @@ class PostCommentController extends Controller
         $this->middleware('auth')->only(['store']);
     }
 
+    public function index(BlogPost $post)
+    {
+        return $post->comments()->with('user')->get();
+    }
+
     // uses route model binding
     public function store(BlogPost $post, StoreComment $request)
     {

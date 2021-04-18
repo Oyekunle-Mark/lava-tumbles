@@ -18,6 +18,7 @@ class Comment extends Model
         'deleted_at',
         'commentable_type',
         'commentable_id',
+        'user_id',
     ];
 
     public function commentable()
