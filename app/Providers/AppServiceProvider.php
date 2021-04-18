@@ -7,6 +7,7 @@ use App\Services\Counter;
 use App\Services\DummyCounter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Http\Resources\Comment as CommentResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,5 +51,7 @@ class AppServiceProvider extends ServiceProvider
         // $this->app->when(Counter::class)
         //     ->needs('$timeout')
         //     ->give(env('COUNTER_TIMEOUT'));
+
+        // CommentResource::withoutWrapping();
     }
 }
