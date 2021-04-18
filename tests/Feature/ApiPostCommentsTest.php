@@ -11,8 +11,6 @@ class ApiPostCommentsTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $blogPostId = 1;
-
     /**
      * A basic feature test example.
      *
@@ -22,7 +20,7 @@ class ApiPostCommentsTest extends TestCase
     {
         $this->createTestPost();
 
-        $response = $this->json('GET', "api/v1/posts/{$this->getNextPostId()}/comments");
+        $response = $this->json('GET', 'api/v1/posts/1/comments');
 
         $response->assertStatus(200)
             ->assertJsonStructure(['data', 'links', 'meta'])
@@ -109,10 +107,5 @@ class ApiPostCommentsTest extends TestCase
         return BlogPost::factory()->create([
             'user_id' => $this->user()->id,
         ]);
-    }
-
-    private function getNextPostId()
-    {
-        return $this->blogPost++;
     }
 }
